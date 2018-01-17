@@ -1,7 +1,10 @@
 [package]
 name    = "howmuch"
 version = "0.1.0"
+license = "MIT"
 authors = ["Anton Dutov <anton.dutov@gmail.com>"]
+description = "Measure elapsed time by tagged sections"
+repository  = "https://github.com/anton-dutov/howmuch-rs"
 
 [dependencies]
 log = "0.4"
