@@ -1,0 +1,11 @@
+[package]
+name    = "howmuch"
+version = "0.1.0"
+authors = ["Anton Dutov <anton.dutov@gmail.com>"]
+
+[dependencies]
+log = "0.4"
+
+
+[[example]]
+name = "simple"
