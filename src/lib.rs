@@ -28,18 +28,18 @@ pub enum Report {
 
 #[derive(Debug)]
 pub struct Tag {
-    since_begin: Duration,
-    since_prev:  Duration,
-    tag: String,
+    pub since_begin: Duration,
+    pub since_prev:  Duration,
+    pub tag: String,
 }
 
 #[derive(Debug)]
 pub struct HowMuch {
     total: Instant,
     diff:  Instant,
+    output: Output,
     precision: Precision,
     report: Report,
-    output: Output,
     tags: Vec<Tag>,
 }
 
@@ -48,9 +48,9 @@ impl HowMuch {
         let mut hm = HowMuch {
             total: Instant::now(),
             diff:  Instant::now(),
+            output: Output::StdOut,
             precision: Precision::Microsecond,
             report: Report::Always,
-            output: Output::StdOut,
             tags: Vec::new(),
         };
         hm.tag("BEGIN");
@@ -67,6 +67,14 @@ impl HowMuch {
             since_prev: diff,
             tag: tag.to_owned()
         })
+    }
+
+    pub fn set_output(&mut self, output: Output) {
+        self.output = output;
+    }
+
+    pub fn set_precision(&mut self, precision: Precision) {
+        self.precision = precision;
     }
 
     pub fn set_report(&mut self, report: Report) {
@@ -99,7 +107,7 @@ impl Drop for HowMuch {
 
                 match self.output {
                     Output::StdOut => println!("{}", &record),
-                    Output::Log(ref lvl) => log!(lvl.clone(), "1"),
+                    Output::Log(ref lvl) => log!(lvl.clone(), "{}", &record),
                 }
             }
         };
